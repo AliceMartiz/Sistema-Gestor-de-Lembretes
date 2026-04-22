@@ -1,6 +1,6 @@
 # 🧠 Sistema Gestor de Lembretes
 
-![Java](https://img.shields.io/badge/Java-17+-orange)
+![Java](https://img.shields.io/badge/Java-11+-orange)
 ![Maven](https://img.shields.io/badge/Maven-Build-blue)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
 ![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow)
