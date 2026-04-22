@@ -5,7 +5,7 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
 ![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow)
 
-Sistema de gestão de lembretes desenvolvido em Java, com execução via linha de comandos e persistência de dados em banco de dados PostgreSQL.
+Sistema de gestão de lembretes desenvolvido em Java, com execução via linha de comandos e persistência de dados em PostgreSQL. O projeto está em evolução: após a versão de terminal, será expandido para uma interface gráfica (JavaFX/Swing).
 
 ---
 
