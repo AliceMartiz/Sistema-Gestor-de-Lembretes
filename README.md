@@ -162,4 +162,4 @@ Funcionalidades ainda estão sendo implementadas e podem sofrer alterações.
 
 ## 📄 Licença
 
-Projeto acadêmico para fins educacionais.
+Projeto desenvolvido com fins educacionais, com base em um enunciado acadêmico adaptado para Java.
