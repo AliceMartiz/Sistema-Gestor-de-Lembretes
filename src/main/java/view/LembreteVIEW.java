@@ -9,6 +9,7 @@ import java.util.Scanner;
 import model.entity.Categoria;
 import model.entity.Lembrete;
 import model.entity.Usuario;
+import model.util.LembreteUtils;
 
 public class LembreteVIEW
 {
@@ -131,6 +132,7 @@ public class LembreteVIEW
     }
     public void listarLembretes (Usuario logado)
     {
+
         LembreteCONTROLLER lc = new LembreteCONTROLLER();
         Categoria c = new Categoria();
         CategoriaCONTROLLER cc = new CategoriaCONTROLLER();
@@ -142,12 +144,12 @@ public class LembreteVIEW
         for(Lembrete lembrete : lembretes)
         {
             cont++;
-            System.out.printf("%-3d %-12s %-12d %-8d %-15d %-12s %-12s%n",
+            System.out.printf("%-3d %-12s %-12s %-8s %-15s %-12s %-12s%n",
                     cont,
                     lembrete.getTitulo(),
-                    lembrete.getPrioridade(),
-                    lembrete.getStatus(),
-                    lembrete.getNivelEsforco(),
+                    LembreteUtils.prioridadeToString(lembrete.getPrioridade()),
+                    LembreteUtils.statusToString(lembrete.getStatus()),
+                    LembreteUtils.esforcoToString(lembrete.getNivelEsforco()),
                     lembrete.getData(),
                     cc.pegarPorIdCategoria(lembrete.getCategoria().getId()).getNome()
             );
