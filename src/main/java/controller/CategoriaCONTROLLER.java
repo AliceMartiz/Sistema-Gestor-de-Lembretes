@@ -40,4 +40,9 @@ public class CategoriaCONTROLLER
         c.setUsuario(logado);
         cd.excluir(c);
     }
+    public Categoria pegarPorIdCategoria (int id)
+    {
+        c.setId(id);
+        return cd.pegarPorId(c);
+    }
 }

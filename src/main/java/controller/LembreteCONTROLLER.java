@@ -26,10 +26,15 @@ public class LembreteCONTROLLER
         l.setUsuario(logado);
         ld.adicionar(l);
     }
-    public Lembrete buscar(int id)
+    public Lembrete buscarPorIdCategoria(int id)
     {
         c.setId(id);
         l.setCategoria(c);
         return ld.Buscar(l);
+    }
+    public ArrayList<Lembrete> buscarLembretes(Usuario logado)
+    {
+        l.setUsuario(logado);
+        return ld.buscarLembretes(l);
     }
 }

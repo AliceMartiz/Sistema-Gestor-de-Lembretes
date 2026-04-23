@@ -109,4 +109,28 @@ public class CategoriaDAO
         statement.close();
         conexao.close();
     }
+    public Categoria pegarPorId(Categoria categoria)
+    {
+        try
+        {
+            Connection conexao = ConectaBanco.getConnection();
+            String sql = "SELECT * FROM Categoria WHERE id = ?";
+            PreparedStatement statement = conexao.prepareStatement(sql);
+            statement.setInt(1, categoria.getId());
+            ResultSet rs = statement.executeQuery();
+            if(rs.next())
+            {
+                categoria = new Categoria();
+                categoria.setNome(rs.getString("nome"));
+                return categoria;
+            }
+            statement.close();
+            conexao.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

@@ -57,4 +57,38 @@ public class LembreteDAO
         }
         return lembrete;
     }
+    public ArrayList<Lembrete> buscarLembretes(Lembrete lembrete)
+    {
+        ArrayList<Lembrete> lembretes = new ArrayList();
+        try
+        {
+            Connection conexao = ConectaBanco.getConnection();
+            String sql = "select * from Lembrete where id_usu = ?";
+            PreparedStatement statement = conexao.prepareStatement(sql);
+            statement.setInt(1, lembrete.getUsuario().getId());
+            ResultSet rs = statement.executeQuery();
+            while(rs.next())
+            {
+                Categoria c = new Categoria();
+                lembrete = new Lembrete();
+                lembrete.setTitulo(rs.getString("titulo"));
+                lembrete.setId(rs.getInt("id"));
+                lembrete.setData(rs.getDate("data"));
+                lembrete.setPrioridade(rs.getInt("prioridade"));
+                lembrete.setStatus(rs.getInt("status"));
+                lembrete.setNivelEsforco(rs.getInt("nivelEsforco"));
+                lembrete.setPrioridade(rs.getInt("prioridade"));
+                c.setId(rs.getInt("id_categoria"));
+                lembrete.setCategoria(c);
+                lembretes.add(lembrete);
+            }
+            statement.close();
+            conexao.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return lembretes;
+    }
 }

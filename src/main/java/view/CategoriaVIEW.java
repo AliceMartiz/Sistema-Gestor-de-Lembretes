@@ -76,8 +76,8 @@ public class CategoriaVIEW
                 System.out.println("\n(" + categoria.getId() + ")\n*Titulo: "
                         + categoria.getNome() + "\n*Descrição: " + categoria.getDescricao());
                 c.setId(categoria.getId());
-                if (lc.buscar(categoria.getId()).getTitulo() != null) {
-                    System.out.println("Relacionado a: " + lc.buscar(categoria.getId()).getTitulo());
+                if (lc.buscarPorIdCategoria(categoria.getId()).getTitulo() != null) {
+                    System.out.println("Relacionado a: " + lc.buscarPorIdCategoria(categoria.getId()).getTitulo());
                 } else {
                     System.out.println("** Sem lembretes relacionados.** ");
                 }

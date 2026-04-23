@@ -30,7 +30,7 @@ public class SistemaGestorDeLembretes
                         cv.menuCategorias(logado);
                         break;
                     case 2:
-                        lv.adicionar(logado);
+                        lv.menuLembrete(logado);
                         break;
                     case 3:
                         break;

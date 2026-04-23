@@ -2,8 +2,12 @@ package view;
 import controller.CategoriaCONTROLLER;
 import controller.LembreteCONTROLLER;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+
+import model.entity.Categoria;
+import model.entity.Lembrete;
 import model.entity.Usuario;
 
 public class LembreteVIEW
@@ -116,9 +120,77 @@ public class LembreteVIEW
                     this.adicionar(logado);
                     break;
                 case 2:
+                    this.menuLembretes(logado);
+                    break;
+                case 3:
+                    this.editarLembretes(logado);
                     break;
             }
 
         }while(true);
     }
+    public void listarLembretes (Usuario logado)
+    {
+        LembreteCONTROLLER lc = new LembreteCONTROLLER();
+        Categoria c = new Categoria();
+        CategoriaCONTROLLER cc = new CategoriaCONTROLLER();
+        ArrayList<Lembrete> lembretes = lc.buscarLembretes(logado);
+        int cont = 0;
+        System.out.println("-".repeat(80));
+        System.out.printf("%-3s %-12s %-12s %-8s %-15s %-12s %-12s%n",
+                "*","Título", "Prioridade", "Status", "Nível Esforço", "Data", "Categoria");
+        for(Lembrete lembrete : lembretes)
+        {
+            cont++;
+            System.out.printf("%-3d %-12s %-12d %-8d %-15d %-12s %-12s%n",
+                    cont,
+                    lembrete.getTitulo(),
+                    lembrete.getPrioridade(),
+                    lembrete.getStatus(),
+                    lembrete.getNivelEsforco(),
+                    lembrete.getData(),
+                    cc.pegarPorIdCategoria(lembrete.getCategoria().getId()).getNome()
+            );
+        }
+        System.out.println("-".repeat(80));
+    }
+    public void menuLembretes(Usuario logado)
+    {
+        this.listarLembretes(logado);
+        System.out.println("\n\t--------- Menu de Listagem ---------");
+        do
+        {
+            System.out.println("\nInforme a opção desejada: \n1 - Listar por Categoria\n2 - Listar por Estado\n3 - Listar por Prioridade\n4 - Listar por Data\n0 -  Voltar");
+            System.out.print("--> ");
+            op = leia.nextInt();
+            switch (op)
+            {
+                case 1:
+                    this.listarPorCategoria(logado);
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+
+            }
+        }while(true);
+    }
+    public void listarPorCategoria (Usuario logado)
+    {
+        LembreteCONTROLLER lc = new LembreteCONTROLLER();
+        System.out.println("\n\t--------- Listar por Categorias ---------");
+
+    }
+    public void editarLembretes (Usuario logado)
+    {
+        System.out.println("\n\t--------- Menu de Edição ---------");
+        do
+        {
+
+        }while(true);
+    }
+
 }

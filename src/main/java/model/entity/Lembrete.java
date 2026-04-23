@@ -4,11 +4,17 @@ import java.util.Date;
 public class Lembrete 
 {
     private String titulo;
-    private int prioridade, status, nivelEsforco;
+    private int prioridade, status, nivelEsforco, id;
     private Date data;
     private Usuario usuario;
     private Categoria categoria;
 
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     public String getTitulo() {
         return titulo;
     }
