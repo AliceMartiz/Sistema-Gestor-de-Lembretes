@@ -37,4 +37,14 @@ public class LembreteCONTROLLER
         l.setUsuario(logado);
         return ld.buscarLembretes(l);
     }
+    public ArrayList<Lembrete> buscarLembretesPorCategoria(Usuario logado, int idCategoria)
+    {
+        l.setUsuario(logado);
+        return ld.buscarLembretesPorCategoria(l, idCategoria);
+    }
+    public ArrayList<Lembrete> buscarLembretesPorStatus(Usuario logado, int status)
+    {
+        l.setUsuario(logado);
+        return ld.buscarLembretesPorCategoria(l, status);
+    }
 }

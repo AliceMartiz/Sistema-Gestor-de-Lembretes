@@ -121,20 +121,24 @@ public class LembreteVIEW
                     this.adicionar(logado);
                     break;
                 case 2:
-                    this.menuLembretes(logado);
+                    this.menuListarLembretes(logado);
                     break;
                 case 3:
                     this.editarLembretes(logado);
                     break;
+                case 0:
+                    System.out.println("<-");
+                    break;
+                default:
+                    System.out.println("Informe uma opção válida!");
             }
 
-        }while(true);
+        }while(op != 0);
     }
     public void listarLembretes (Usuario logado)
     {
 
         LembreteCONTROLLER lc = new LembreteCONTROLLER();
-        Categoria c = new Categoria();
         CategoriaCONTROLLER cc = new CategoriaCONTROLLER();
         ArrayList<Lembrete> lembretes = lc.buscarLembretes(logado);
         int cont = 0;
@@ -143,10 +147,15 @@ public class LembreteVIEW
                 "*","Título", "Prioridade", "Status", "Nível Esforço", "Data", "Categoria");
         for(Lembrete lembrete : lembretes)
         {
+            String titulo = lembrete.getTitulo();
+            if(titulo.length() > 9)
+            {
+                titulo =  titulo.substring(0, 9) + "...";
+            }
             cont++;
             System.out.printf("%-3d %-12s %-12s %-8s %-15s %-12s %-12s%n",
                     cont,
-                    lembrete.getTitulo(),
+                    titulo,
                     LembreteUtils.prioridadeToString(lembrete.getPrioridade()),
                     LembreteUtils.statusToString(lembrete.getStatus()),
                     LembreteUtils.esforcoToString(lembrete.getNivelEsforco()),
@@ -156,7 +165,7 @@ public class LembreteVIEW
         }
         System.out.println("-".repeat(80));
     }
-    public void menuLembretes(Usuario logado)
+    public void menuListarLembretes(Usuario logado)
     {
         this.listarLembretes(logado);
         System.out.println("\n\t--------- Menu de Listagem ---------");
@@ -171,20 +180,90 @@ public class LembreteVIEW
                     this.listarPorCategoria(logado);
                     break;
                 case 2:
+                    this.listarPorEstado(logado);
                     break;
                 case 3:
                     break;
                 case 4:
                     break;
-
+                case 0:
+                    this.menuLembrete(logado);
+                    break;
+                default:
+                    System.out.println("Informe uma opção válida!");
             }
-        }while(true);
+        }while(op != 0);
     }
     public void listarPorCategoria (Usuario logado)
     {
-        LembreteCONTROLLER lc = new LembreteCONTROLLER();
         System.out.println("\n\t--------- Listar por Categorias ---------");
-
+        CategoriaCONTROLLER cc = new CategoriaCONTROLLER();
+        LembreteCONTROLLER lc = new LembreteCONTROLLER();
+        ArrayList<Categoria> categorias = cc.buscarTudo(logado);
+        for(Categoria categoria : categorias)
+        {
+            int cont = 0;
+            ArrayList<Lembrete> lembretes = lc.buscarLembretesPorCategoria(logado, categoria.getId());
+            System.out.println();
+            System.out.println("-".repeat(80));
+            System.out.println("Categoria: " + categoria.getNome());
+            System.out.println("-".repeat(80));
+            System.out.printf("%-3s %-12s %-12s %-8s %-15s %-12s%n",
+                    "*","Título", "Prioridade", "Status", "Nível Esforço", "Data");
+            for(Lembrete lembrete : lembretes)
+            {
+                String titulo = lembrete.getTitulo();
+                if(titulo.length() > 9)
+                {
+                    titulo =  titulo.substring(0, 9) + "...";
+                }
+                cont++;
+                System.out.printf("%-3d %-12s %-12s %-8s %-15s %-12s%n",
+                        cont,
+                        titulo,
+                        LembreteUtils.prioridadeToString(lembrete.getPrioridade()),
+                        LembreteUtils.statusToString(lembrete.getStatus()),
+                        LembreteUtils.esforcoToString(lembrete.getNivelEsforco()),
+                        lembrete.getData()
+                );
+            }
+        }
+        System.out.println("-".repeat(80));
+    }
+    public void listarPorEstado (Usuario logado)
+    {
+        LembreteCONTROLLER lc = new LembreteCONTROLLER();
+        ArrayList<Lembrete> lembretes = lc.buscarLembretes(logado);
+        int[] status = {1, 2, 3, 4};
+        for(int s : status)
+        {
+            CategoriaCONTROLLER cc = new CategoriaCONTROLLER();
+            System.out.println();
+            System.out.println("-".repeat(80));
+            System.out.println("Estado: " + LembreteUtils.statusToString(s));
+            System.out.println("-".repeat(80));
+            System.out.printf("%-3s %-12s %-12s %-8s %-15s %-12s%n",
+                    "*","Título", "Prioridade", "Status", "Nível Esforço", "Data");
+            int cont = 0;
+            for(Lembrete lembrete : lembretes)
+            {
+                if(lembrete.getStatus() == s)
+                {
+                    cont++;
+                    System.out.printf("%-3d %-12s %-12s %-8s %-15s %-12s%n",
+                            cont,
+                            lembrete.getTitulo(),
+                            LembreteUtils.prioridadeToString(lembrete.getPrioridade()),
+                            LembreteUtils.statusToString(lembrete.getStatus()),
+                            LembreteUtils.esforcoToString(lembrete.getNivelEsforco()),
+                            lembrete.getData(),
+                            lembrete.getCategoria().getNome(),
+                            cc.pegarPorIdCategoria(lembrete.getCategoria().getId()).getNome()
+                    );
+                }
+            }
+            if(cont == 0) System.out.println("\n\tNenhum lembrete foi vinculado a esse status.");
+        }
     }
     public void editarLembretes (Usuario logado)
     {

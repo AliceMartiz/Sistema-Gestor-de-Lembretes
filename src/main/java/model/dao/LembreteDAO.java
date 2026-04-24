@@ -91,4 +91,74 @@ public class LembreteDAO
         }
         return lembretes;
     }
+    public ArrayList<Lembrete> buscarLembretesPorCategoria(Lembrete lembrete, int idCategoria)
+    {
+        ArrayList<Lembrete> lembretes = new ArrayList();
+        try
+        {
+            Connection conexao = ConectaBanco.getConnection();
+            String sql = "SELECT * FROM lembrete WHERE id_usu = ? AND id_categoria = ?";
+            PreparedStatement statement = conexao.prepareStatement(sql);
+            statement.setInt(1, lembrete.getUsuario().getId());
+            statement.setInt(2, idCategoria);
+            ResultSet rs = statement.executeQuery();
+            while(rs.next())
+            {
+                Categoria c = new Categoria();
+                lembrete = new Lembrete();
+                lembrete.setTitulo(rs.getString("titulo"));
+                lembrete.setId(rs.getInt("id"));
+                lembrete.setData(rs.getDate("data"));
+                lembrete.setPrioridade(rs.getInt("prioridade"));
+                lembrete.setStatus(rs.getInt("status"));
+                lembrete.setNivelEsforco(rs.getInt("nivelEsforco"));
+                lembrete.setPrioridade(rs.getInt("prioridade"));
+                c.setId(rs.getInt("id_categoria"));
+                lembrete.setCategoria(c);
+                lembretes.add(lembrete);
+            }
+            statement.close();
+            conexao.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return lembretes;
+    }
+    public ArrayList<Lembrete> buscarLembretesPorStatus(Lembrete lembrete, int status)
+    {
+        ArrayList<Lembrete> lembretes = new ArrayList();
+        try
+        {
+            Connection conexao = ConectaBanco.getConnection();
+            String sql = "SELECT * FROM lembrete WHERE id_usu = ? AND status = ?";
+            PreparedStatement statement = conexao.prepareStatement(sql);
+            statement.setInt(1, lembrete.getUsuario().getId());
+            statement.setInt(2, status);
+            ResultSet rs = statement.executeQuery();
+            while(rs.next())
+            {
+                Categoria c = new Categoria();
+                lembrete = new Lembrete();
+                lembrete.setTitulo(rs.getString("titulo"));
+                lembrete.setId(rs.getInt("id"));
+                lembrete.setData(rs.getDate("data"));
+                lembrete.setPrioridade(rs.getInt("prioridade"));
+                lembrete.setStatus(rs.getInt("status"));
+                lembrete.setNivelEsforco(rs.getInt("nivelEsforco"));
+                lembrete.setPrioridade(rs.getInt("prioridade"));
+                c.setId(rs.getInt("id_categoria"));
+                lembrete.setCategoria(c);
+                lembretes.add(lembrete);
+            }
+            statement.close();
+            conexao.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return lembretes;
+    }
 }
