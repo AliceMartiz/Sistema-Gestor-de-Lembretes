@@ -69,6 +69,8 @@ public class UsuarioVIEW
                                 System.out.println("\n* A senha deve ser maior ou igual a 6.");
                             }
                         }while(senha.length() < 6);
+                        uc.adicionar(usuario, senha);
+                        System.out.println(VERDE + "Usuário criado com sucesso!" + RESET);
                         break;
                     default:
                         System.err.println("Erro! Insira uma opção válida!");
